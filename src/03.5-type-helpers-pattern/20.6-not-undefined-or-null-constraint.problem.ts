@@ -1,13 +1,3 @@
-export type Maybe<T> = T | null | undefined;
+export type Maybe<T> = NonNullable<T>
 
-type tests = [
-  // @ts-expect-error
-  Maybe<null>,
-  // @ts-expect-error
-  Maybe<undefined>,
-
-  Maybe<string>,
-  Maybe<false>,
-  Maybe<0>,
-  Maybe<"">,
-];
+type tests = [Maybe<null>, Maybe<undefined>, Maybe<string>, Maybe<false>, Maybe<0>, Maybe<''>]

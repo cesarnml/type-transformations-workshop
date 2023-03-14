@@ -1,22 +1,15 @@
-import { Equal, Expect } from "../helpers/type-utils";
+import { ArgumentsType } from 'vitest'
+import { Equal, Expect } from '../helpers/type-utils'
 
-type GetParametersAndReturnType<T> = {
-  params: Parameters<T>;
-  returnValue: ReturnType<T>;
-};
+type GetParametersAndReturnType<T extends (...args: any) => any> = {
+  params: Parameters<T>
+  returnValue: ReturnType<T>
+}
 
 type tests = [
+  Expect<Equal<GetParametersAndReturnType<() => string>, { params: []; returnValue: string }>>,
   Expect<
-    Equal<
-      GetParametersAndReturnType<() => string>,
-      { params: []; returnValue: string }
-    >
-  >,
-  Expect<
-    Equal<
-      GetParametersAndReturnType<(s: string) => void>,
-      { params: [string]; returnValue: void }
-    >
+    Equal<GetParametersAndReturnType<(s: string) => void>, { params: [string]; returnValue: void }>
   >,
   Expect<
     Equal<
@@ -24,4 +17,4 @@ type tests = [
       { params: [number, boolean]; returnValue: number }
     >
   >,
-];
+]
